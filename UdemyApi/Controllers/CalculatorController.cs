@@ -16,24 +16,33 @@ namespace UdemyApi.Controllers
         [HttpGet("sum/{firstNumber}/{secondNumber}")]
         public IActionResult Get(string firstNumber, string secondNumber)
         {
-            
-            if (IsNumeric( firstNumber) && IsNumeric(secondNumber))
+
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
                 var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
-                    return Ok(sum.ToString());
-            }  
+                return Ok(sum.ToString());
+            }
 
             return BadRequest("Invalid Input");
         }
 
-        private int ConvertToDecimal(string firstNumber)
+        private decimal ConvertToDecimal(string firstNumber)
         {
-            throw new NotImplementedException();
+            decimal decimalValue;
+            if(decimal.TryParse(firstNumber, out decimalValue))
+            {
+                return decimalValue;
+            }
+            return 0;
         }
 
         private bool IsNumeric(string firstNumber)
         {
-            throw new NotImplementedException();
+            double number;
+            bool isNumber = double.TryParse(firstNumber,
+                System.Globalization.NumberStyles.Any,
+                System.Globalization.NumberFormatInfo.InvariantInfo, out number);
+            return isNumber;
         }
     }
 }
