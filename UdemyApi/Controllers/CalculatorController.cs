@@ -51,38 +51,37 @@ namespace UdemyApi.Controllers
 
             return BadRequest("Invalid Input");
         }
-        
+
         [HttpGet("mean/{firstNumber}/{secondNumber}")]
         public IActionResult Mean(string firstNumber, string secondNumber)
         {
 
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber);
+                var sum = (ConvertToDecimal(firstNumber) + ConvertToDecimal(secondNumber)) / 2;
                 return Ok(sum.ToString());
+            }
+
+            return BadRequest("Invalid Input");
+        }
+        [HttpGet("square/{firstNumber}")]
+        public IActionResult SquareRoot(string firstNumber)
+        {
+
+            if (IsNumeric(firstNumber))
+            {
+                var square = Math.Sqrt((double)ConvertToDecimal(firstNumber));
+                return Ok(square.ToString());
             }
 
             return BadRequest("Invalid Input");
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         private decimal ConvertToDecimal(string firstNumber)
         {
             decimal decimalValue;
-            if(decimal.TryParse(firstNumber, out decimalValue))
+            if (decimal.TryParse(firstNumber, out decimalValue))
             {
                 return decimalValue;
             }
