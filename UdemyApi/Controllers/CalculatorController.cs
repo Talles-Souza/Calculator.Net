@@ -32,8 +32,8 @@ namespace UdemyApi.Controllers
 
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var sub = ConvertToDecimal(firstNumber) - ConvertToDecimal(secondNumber);
+                return Ok(sub.ToString());
             }
 
             return BadRequest("Invalid Input");
@@ -45,8 +45,21 @@ namespace UdemyApi.Controllers
 
             if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
             {
-                var sum = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                var mult = ConvertToDecimal(firstNumber) * ConvertToDecimal(secondNumber);
+                return Ok(mult.ToString());
+            }
+
+            return BadRequest("Invalid Input");
+        }
+
+        [HttpGet("divi/{firstNumber}/{secondNumber}")]
+        public IActionResult Division(string firstNumber, string secondNumber)
+        {
+
+            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+            {
+                var div = ConvertToDecimal(firstNumber) / ConvertToDecimal(secondNumber);
+                return Ok(div.ToString());
             }
 
             return BadRequest("Invalid Input");
